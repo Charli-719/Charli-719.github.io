@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"charli-719.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="之前一直都是对json数组进行操作，顺便看一下(^__^)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="json对象遍历">
+<meta property="og:url" content="https://charli-719.github.io/2018/08/30/2018/json%E5%AF%B9%E8%B1%A1%E9%81%8D%E5%8E%86/index.html">
+<meta property="og:site_name" content="Charli">
+<meta property="og:description" content="之前一直都是对json数组进行操作，顺便看一下(^__^)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://charli-719.github.io/json%E5%AF%B9%E8%B1%A1%E9%81%8D%E5%8E%86/autumn.jpg">
+<meta property="article:published_time" content="2018-08-30T07:08:36.000Z">
+<meta property="article:modified_time" content="2022-05-24T10:36:11.591Z">
+<meta property="article:author" content="Charli">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://charli-719.github.io/json%E5%AF%B9%E8%B1%A1%E9%81%8D%E5%8E%86/autumn.jpg">
+
+
+<link rel="canonical" href="https://charli-719.github.io/2018/08/30/2018/json%E5%AF%B9%E8%B1%A1%E9%81%8D%E5%8E%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://charli-719.github.io/2018/08/30/2018/json%E5%AF%B9%E8%B1%A1%E9%81%8D%E5%8E%86/","path":"2018/08/30/2018/json对象遍历/","title":"json对象遍历"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>json对象遍历 | Charli</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Charli" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Charli</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">梦想的起源</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%8D%E5%8E%86json%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">遍历json对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%8D%E5%8E%86json%E6%95%B0%E7%BB%84%EF%BC%8C%E5%85%83%E7%B4%A0%E4%B8%BAjson%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">遍历json数组，元素为json对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E9%81%8D%E5%8E%86%E5%A4%8D%E5%90%88Json%E7%BB%93%E6%9E%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.</span> <span class="nav-text">深度遍历复合Json结构数据</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Charli</p>
+  <div class="site-description" itemprop="description">不积跬步，无以至千里</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://charli-719.github.io/2018/08/30/2018/json%E5%AF%B9%E8%B1%A1%E9%81%8D%E5%8E%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Charli">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Charli">
+      <meta itemprop="description" content="不积跬步，无以至千里">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="json对象遍历 | Charli">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          json对象遍历
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-30 15:08:36" itemprop="dateCreated datePublished" datetime="2018-08-30T15:08:36+08:00">2018-08-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-24 18:36:11" itemprop="dateModified" datetime="2022-05-24T18:36:11+08:00">2022-05-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="/json%E5%AF%B9%E8%B1%A1%E9%81%8D%E5%8E%86/autumn.jpg" alt="autumn"><br>之前一直都是对json数组进行操作，顺便看一下(<em>^__^</em>)</p>
+<span id="more"></span>
+<h1 id="遍历json对象"><a href="#遍历json对象" class="headerlink" title="遍历json对象"></a>遍历json对象</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var jsonObj = &#123;&quot;name&quot;: &quot;jeans&quot;, &quot;password&quot;: &quot;1111&quot;&#125;;</span><br><span class="line">for (var val in jsonObj) &#123;</span><br><span class="line">    alert(val + &quot; &quot; + jsonObj[val]);//输出如:name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="遍历json数组，元素为json对象"><a href="#遍历json数组，元素为json对象" class="headerlink" title="遍历json数组，元素为json对象"></a>遍历json数组，元素为json对象</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">## 无规律json数组</span><br><span class="line">var jsonArr = [&#123;&quot;name&quot;:&quot;jeans&quot;,&quot;age&quot;:24,&quot;sex&quot;:&quot;女&quot;,city:&quot;江苏&quot;&#125;,</span><br><span class="line">            &#123;&quot;text&quot;:&quot;shelly&quot;,&quot;content&quot;:123654&#125;];</span><br><span class="line"></span><br><span class="line">for (var i = 0, l = jsonArr.length; i &lt; l; i++) &#123;</span><br><span class="line">    for (var key in jsonArr[i]) &#123;</span><br><span class="line">        alert(key + &#x27;:&#x27; + jsonArr[i][key]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">## 有规律json数组</span><br><span class="line"></span><br><span class="line">var jsonArr =[</span><br><span class="line">&#123;&quot;name&quot;:&quot;jeans&quot;,&quot;age&quot;:24,&quot;sex&quot;:&quot;女&quot;,city:&quot;江苏&quot;&#125;,</span><br><span class="line">&#123;&quot;name&quot;:&quot;shelly&quot;,&quot;age&quot;:21&#125;,&quot;sex&quot;:&quot;女&quot;,&quot;city&quot;:&quot;上海&quot;&#125;</span><br><span class="line">]</span><br><span class="line">(1)、</span><br><span class="line">for (var p in jsonArr) &#123;//遍历json数组时，这么写p为索引，0,1</span><br><span class="line">    alert(jsonArr[p].name + &quot; &quot; + jsonArr[p].age);</span><br><span class="line">&#125;</span><br><span class="line">(2)、</span><br><span class="line">for(var i = 0; i &lt; jsonArr.length; i++)&#123;</span><br><span class="line">   alert(jsonArr[i].name + &quot; &quot; + jsonArr[i].age);</span><br><span class="line">&#125;</span><br><span class="line">(3)、es6 的 map 方法</span><br><span class="line">const html = jsonArr.map((x)=&gt;&#123;</span><br><span class="line">console.lo(x); //x=&#123;&quot;name&quot;:&quot;jeans&quot;,&quot;age&quot;:24,&quot;sex&quot;:&quot;女&quot;,city:&quot;江苏&quot;&#125;</span><br><span class="line">return &lt;p&gt;名字:&#123;x.name&#125;;年龄:&#123;x.age&#125;;性别:&#123;x.sex&#125;;城市:&#123;x.city&#125;&lt;/p&gt;</span><br><span class="line">&#125;)</span><br><span class="line">//map后的结果插入到页面中就可以了</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="深度遍历复合Json结构数据"><a href="#深度遍历复合Json结构数据" class="headerlink" title="深度遍历复合Json结构数据"></a>深度遍历复合Json结构数据</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSON对象里面可以嵌套多层对象(数组或对象)，嵌套层数未知</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 深度遍历</span><br><span class="line"> * 复合的Json结构数据，JSON对象里面可以嵌套多层对象(数组或对象)</span><br><span class="line"> */</span><br><span class="line"> function deepJson(json)&#123;</span><br><span class="line">  // 1. 变量为json对象：将key输出，value进行递归</span><br><span class="line">     if(isType(json, &quot;Object&quot;))&#123;</span><br><span class="line">          for(var key in json)&#123;</span><br><span class="line">           $(&quot;#out&quot;).append(key + &#x27; : &#x27;);</span><br><span class="line">           if(isType(json[key], &quot;Array&quot;) || isType(json[key], &quot;Object&quot;))&#123;</span><br><span class="line">            $(&quot;#out&quot;).append(&quot;下面为子项内容&lt;br/&gt;&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">           deepTraverse(json[key]);</span><br><span class="line">          &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     // 2. 变量为json数组：逐个元素递归</span><br><span class="line">     else if(isType(json, &quot;Array&quot;))&#123;</span><br><span class="line">          for(var i=0; i&lt;json.length; i++)&#123;</span><br><span class="line">               var jsonObj = json[i];</span><br><span class="line">               deepTraverse(jsonObj);</span><br><span class="line">              // 遍历数组中的元素(为json对象)后输出：分隔线+一个换行符</span><br><span class="line">              if(isType(jsonObj, &quot;Object&quot;))&#123;</span><br><span class="line">                $(&quot;#out&quot;).append(&quot;------------------------&lt;br/&gt;&quot;);</span><br><span class="line">               &#125;</span><br><span class="line">          &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     // 3. 变量为简单数据类型：直接输出（递归函数的终止条件）</span><br><span class="line">     else if(isType(json, &quot;String&quot;) || isType(json, &quot;Number&quot;) ||</span><br><span class="line">      isType(json,&quot;Boolean&quot;) || isType(json,&quot;Null&quot;))&#123;</span><br><span class="line">          $(&quot;#out&quot;).append(json);</span><br><span class="line">          $(&quot;#out&quot;).append(&quot;&lt;br/&gt;&quot;);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/08/28/2018/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" rel="prev" title="第一篇博客">
+                  <i class="fa fa-chevron-left"></i> 第一篇博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/09/04/2018/%E8%8B%B1%E8%AF%AD/" rel="next" title="英语">
+                  英语 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Charli</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

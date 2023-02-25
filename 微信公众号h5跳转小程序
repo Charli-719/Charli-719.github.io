@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"charli-719.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近在公司做活动，遇到了h5活动页面唤起小程序的需求, 找了资料，发现了wx-open-launch-open。 微信官方文档 支持了这种跳转，不过对微信版本、系统版本都有要求。  因为需求需要判断当前用户是否支持，不支持则显示别的内容，支持就点击后直接跳转到小程序。开始我的探索路 前提绑定域名 这个微信官方文档里面说的很清楚，登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信公众号h5跳转小程序">
+<meta property="og:url" content="https://charli-719.github.io/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7h5%E8%B7%B3%E8%BD%AC%E5%B0%8F%E7%A8%8B%E5%BA%8F">
+<meta property="og:site_name" content="Charli">
+<meta property="og:description" content="最近在公司做活动，遇到了h5活动页面唤起小程序的需求, 找了资料，发现了wx-open-launch-open。 微信官方文档 支持了这种跳转，不过对微信版本、系统版本都有要求。  因为需求需要判断当前用户是否支持，不支持则显示别的内容，支持就点击后直接跳转到小程序。开始我的探索路 前提绑定域名 这个微信官方文档里面说的很清楚，登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-18T12:21:39.000Z">
+<meta property="article:modified_time" content="2022-05-24T10:35:59.460Z">
+<meta property="article:author" content="Charli">
+<meta property="article:tag" content="公众号">
+<meta property="article:tag" content="h5">
+<meta property="article:tag" content="小程序">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://charli-719.github.io/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7h5%E8%B7%B3%E8%BD%AC%E5%B0%8F%E7%A8%8B%E5%BA%8F">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://charli-719.github.io/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7h5%E8%B7%B3%E8%BD%AC%E5%B0%8F%E7%A8%8B%E5%BA%8F","path":"/微信公众号h5跳转小程序","title":"微信公众号h5跳转小程序"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>微信公众号h5跳转小程序 | Charli</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Charli" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Charli</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">梦想的起源</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%8F%90"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D"><span class="nav-number">1.1.</span> <span class="nav-text">绑定域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5js%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">引入js文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87config%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5%E6%9D%83%E9%99%90%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE%E5%B9%B6%E7%94%B3%E8%AF%B7%E6%89%80%E9%9C%80%E5%BC%80%E6%94%BE%E6%A0%87%E7%AD%BE"><span class="nav-number">1.3.</span> <span class="nav-text">通过config接口注入权限验证配置并申请所需开放标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87ready%E6%8E%A5%E5%8F%A3%E5%A4%84%E7%90%86%E6%88%90%E5%8A%9F%E9%AA%8C%E8%AF%81"><span class="nav-number">1.4.</span> <span class="nav-text">通过ready接口处理成功验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87error%E6%8E%A5%E5%8F%A3%E5%A4%84%E7%90%86%E5%A4%B1%E8%B4%A5%E9%AA%8C%E8%AF%81"><span class="nav-number">1.5.</span> <span class="nav-text">通过error接口处理失败验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">1.6.</span> <span class="nav-text">使用说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">使用过程中的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8C%89%E9%92%AE%E6%B2%A1%E6%9C%89%E6%98%BE%E7%A4%BA"><span class="nav-number">2.1.</span> <span class="nav-text">跳转小程序按钮没有显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E6%8C%89%E9%92%AE"><span class="nav-number">2.2.</span> <span class="nav-text">自定义图片按钮</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8C%89%E9%92%AE%E6%A0%B7%E5%BC%8F%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">跳转小程序按钮样式不起作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%BD%93%E5%89%8D%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81wx-open-launch-open%E6%8C%89%E9%92%AE-%E6%89%8B%E6%9C%BA%E4%B8%8D%E6%94%AF%E6%8C%81wx-open-launch-open"><span class="nav-number">2.4.</span> <span class="nav-text">判断当前是否支持wx-open-launch-open按钮(手机不支持wx-open-launch-open)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Charli</p>
+  <div class="site-description" itemprop="description">不积跬步，无以至千里</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://charli-719.github.io/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7h5%E8%B7%B3%E8%BD%AC%E5%B0%8F%E7%A8%8B%E5%BA%8F">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Charli">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Charli">
+      <meta itemprop="description" content="不积跬步，无以至千里">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="微信公众号h5跳转小程序 | Charli">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微信公众号h5跳转小程序
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-18 20:21:39" itemprop="dateCreated datePublished" datetime="2021-01-18T20:21:39+08:00">2021-01-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-24 18:35:59" itemprop="dateModified" datetime="2022-05-24T18:35:59+08:00">2022-05-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p> 最近在公司做活动，遇到了h5活动页面唤起小程序的需求, 找了资料，发现了wx-open-launch-open。<br> <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_Open_Tag.html">微信官方文档</a> 支持了这种跳转，不过对微信版本、系统版本都有要求。</p>
+<p> 因为需求需要判断当前用户是否支持，不支持则显示别的内容，支持就点击后直接跳转到小程序。开始我的探索路</p>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><h2 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h2><p> 这个微信官方文档里面说的很清楚，登录<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/">微信公众平台</a>进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。</p>
+<h2 id="引入js文件"><a href="#引入js文件" class="headerlink" title="引入js文件"></a>引入js文件</h2><p> 在需要调用JS接口的页面引入如下JS文件：<a target="_blank" rel="noopener" href="http://res.wx.qq.com/open/js/jweixin-1.6.0.js">http://res.wx.qq.com/open/js/jweixin-1.6.0.js</a> （支持https）</p>
+<p> 如需进一步提升服务稳定性，当上述资源不可访问时，可改访问：<a target="_blank" rel="noopener" href="http://res2.wx.qq.com/open/js/jweixin-1.6.0.js">http://res2.wx.qq.com/open/js/jweixin-1.6.0.js</a> （支持https）</p>
+<p> 备注：支持使用 AMD&#x2F;CMD 标准模块加载方法加载<br> （ps：因为我们的h5页面是https， 所以引入的连接要是https的，不然会有问题呦）</p>
+<h2 id="通过config接口注入权限验证配置并申请所需开放标签"><a href="#通过config接口注入权限验证配置并申请所需开放标签" class="headerlink" title="通过config接口注入权限验证配置并申请所需开放标签"></a>通过config接口注入权限验证配置并申请所需开放标签</h2><p> 与使用JS-SDK配置方式相同，所有需要使用开放标签的页面必须先注入配置信息，并通过openTagList字段申请所需要的开放标签，否则将无法使用（同一个url仅需调用一次）。开放标签的申请和JS接口的申请相互独立，因此是可以同时申请的。<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wx.config(&#123;</span><br><span class="line">  debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印</span><br><span class="line">  appId: &#x27;&#x27;, // 必填，公众号的唯一标识</span><br><span class="line">  timestamp: , // 必填，生成签名的时间戳</span><br><span class="line">  nonceStr: &#x27;&#x27;, // 必填，生成签名的随机串</span><br><span class="line">  signature: &#x27;&#x27;,// 必填，签名</span><br><span class="line">  jsApiList: [], // 必填，需要使用的JS接口列表</span><br><span class="line">  openTagList: [] // 可选，需要使用的开放标签列表，例如[&#x27;wx-open-launch-app&#x27;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="通过ready接口处理成功验证"><a href="#通过ready接口处理成功验证" class="headerlink" title="通过ready接口处理成功验证"></a>通过ready接口处理成功验证</h2> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wx.ready(function () &#123;</span><br><span class="line">  // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="通过error接口处理失败验证"><a href="#通过error接口处理失败验证" class="headerlink" title="通过error接口处理失败验证"></a>通过error接口处理失败验证</h2> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wx.error(function (res) &#123;</span><br><span class="line">  // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>所有开放标签都能像普通的HTML标签一样在页面中直接使用，不需要再进行额外的处理。</p>
+<blockquote>
+<p>(ps: 我们使用的是react，所有也是使用的script)</p>
+</blockquote>
+<p>对于标签事件，均可通过event.detail获得详细信息。如果无特殊说明，下文标签事件说明中的返回值均指代event.detail中的内容。</p>
+<p>另外，需要注意以下几点：如果所使用的标签允许提供插槽，由于插槽中模版的样式是和页面隔离的，因此需要注意在插槽中定义模版的样式。插槽模版及样式均需要通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+<p>进行包裹。对于Vue等视图框架，为了避免template标签冲突的问题，可使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/wxtag-template&quot;&gt;&lt;script&gt;</span><br></pre></td></tr></table></figure>
+<p>进行代替，来包裹插槽模版和样式。另外，对于具名插槽还需要通过slot属性声明插槽名称，下文标签插槽中的default插槽为默认插槽，可不声明插槽名称。</p>
+<p>页面中与布局和定位相关的样式，如position: fixed; top -100;等，尽量不要写在插槽模版的节点中，请声明在标签或其父节点上；<br>对于有CSP要求的页面，需要添加白名单frame-src https:&#x2F;&#x2F;*.qq.com webcompt:，才能在页面中正常使用开放标签。</p>
+<h1 id="使用过程中的问题"><a href="#使用过程中的问题" class="headerlink" title="使用过程中的问题"></a>使用过程中的问题</h1><h2 id="跳转小程序按钮没有显示"><a href="#跳转小程序按钮没有显示" class="headerlink" title="跳转小程序按钮没有显示"></a>跳转小程序按钮没有显示</h2><p>没有起作用有好几个方便的原因：<br>1.微信公众号必须是服务号。要在公众号后台配置js安全域名  和 ip白名单<br>2.真机测试，才会显示（我使用微信开发者工具也不会显示的）<br>3、username&#x3D;小程序的原始id，以gh开头的，不是小程序wx开头的id<br>4、path&#x3D;‘*****.html’后面要以.html结尾（这个微信官方文档也有写）<br>5、openTagList: [“wx-open-launch-weapp”]    config配置参数必须填这个开放接口</p>
+<h2 id="自定义图片按钮"><a href="#自定义图片按钮" class="headerlink" title="自定义图片按钮"></a>自定义图片按钮</h2><p>1、图片连接必须是线上的，不能是本地图片，不然不会显示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=&quot;banner-button&quot;&gt;</span><br><span class="line">    &lt;wx-open-launch-weapp</span><br><span class="line">        id=&quot;launch-btn&quot;</span><br><span class="line">        username=&#123;this.state.miniUsername&#125;</span><br><span class="line">        path=&#123;this.state.miniPath&#125;</span><br><span class="line">        style=&#123;&#123;width: &quot;150px&quot;, height: &quot;32px&quot;, fontSize: &quot;23px&quot;&#125;&#125;&gt;</span><br><span class="line">        &lt;script type=&quot;text/wxtag-template&quot;&gt;</span><br><span class="line">            &lt;img style=&#123;&#123;width: &quot;100%&quot;&#125;&#125; src=&quot;https://images-1254198035.cos.ap-shanghai.myqcloud.com/qipai/btn.png&quot; alt=&quot;&quot;/&gt; (线上图片会显示)</span><br><span class="line">            &lt;img style=&#123;&#123;width: &quot;100%&quot;&#125;&#125; src=&quot;../image/btn.png&quot; alt=&quot;&quot;/&gt;(本地图片不会显示)</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">    &lt;/wx-open-launch-weapp&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="跳转小程序按钮样式不起作用"><a href="#跳转小程序按钮样式不起作用" class="headerlink" title="跳转小程序按钮样式不起作用"></a>跳转小程序按钮样式不起作用</h2><p>注意：样式无法写在外面，只能使用内联样式。固定大小的样式不支持rem单位，不会继承样式</p>
+<h2 id="判断当前是否支持wx-open-launch-open按钮-手机不支持wx-open-launch-open"><a href="#判断当前是否支持wx-open-launch-open按钮-手机不支持wx-open-launch-open" class="headerlink" title="判断当前是否支持wx-open-launch-open按钮(手机不支持wx-open-launch-open)"></a>判断当前是否支持wx-open-launch-open按钮(手机不支持wx-open-launch-open)</h2><p>因为需要对不支持wx-open-launch-open按钮的做判断，显示另一个页面，所以需要判断当前手机是否支持</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// wx-open-launch-weapp按钮 微信版本要求为：7.0.12及以上。 系统版本要求为：iOS 10.3及以上、Android 5.0及以上。</span><br><span class="line">  var wechatInfo = navigator.userAgent.match(/MicroMessenger\/([\d\.]+)/i);</span><br><span class="line">  console.log(&quot;wechatInfo:&quot;, wechatInfo &amp;&amp; wechatInfo[1]);</span><br><span class="line">  // Android 5.0及以上</span><br><span class="line">  var ua = navigator.userAgent.toLowerCase();</span><br><span class="line">  console.log(ua);</span><br><span class="line">  if (!wechatInfo) &#123;</span><br><span class="line">      console.log(&quot;仅支持微信&quot;) ;</span><br><span class="line">  &#125; else if (wechatInfo[1] &lt; &quot;7.0.12&quot;) &#123;</span><br><span class="line">      console.log(&quot;微信版本要求7.0.12及以上版本&quot;)</span><br><span class="line">  &#125; else if (/android/i.test(navigator.userAgent)) &#123;</span><br><span class="line">      var test = /android\s([\w.]+)/;//IE</span><br><span class="line">      var match = test.exec(ua);</span><br><span class="line">      console.log(match);</span><br><span class="line">      document.write(&quot;This is Android &quot; + match[1] + &quot; browser.&quot;); //这是Android平台下浏览器</span><br><span class="line">      var version = match[1].split(&quot;.&quot;)[0];</span><br><span class="line">      if (version &lt; 5) &#123;</span><br><span class="line">          console.log(&#x27;Android系统要求5.0及以上版本&#x27;);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125; else if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) &#123;</span><br><span class="line">      var test = /os\s([\w_]+)/;//IE</span><br><span class="line">      var match = test.exec(ua);</span><br><span class="line">      var version = match[1].split(&quot;_&quot;)[0] + &quot;.&quot; + match[1].split(&quot;_&quot;)[1];</span><br><span class="line">      console.log(version);</span><br><span class="line">      if (version &lt; 10.4) &#123;</span><br><span class="line">          console.log(&#x27;ios系统要求10.3及以上版本&#x27;);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>很多东西网上都是可以找到的， 这里面大部分内容都是我在网上可以看到的。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/" rel="tag"># 公众号</a>
+              <a href="/tags/h5/" rel="tag"># h5</a>
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 小程序</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/react-json-view" rel="prev" title="react-json-view">
+                  <i class="fa fa-chevron-left"></i> react-json-view
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E5%9C%A8React%20Hooks%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%96%B9%E6%B3%95" rel="next" title="在React Hooks中使用生命周期方法">
+                  在React Hooks中使用生命周期方法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Charli</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

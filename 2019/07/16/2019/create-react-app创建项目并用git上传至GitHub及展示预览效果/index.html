@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"charli-719.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="create-react-app创建项目并用git上传至GitHub及展示预览效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="create-react-app创建项目并用git上传至GitHub及展示预览效果">
+<meta property="og:url" content="https://charli-719.github.io/2019/07/16/2019/create-react-app%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E7%94%A8git%E4%B8%8A%E4%BC%A0%E8%87%B3GitHub%E5%8F%8A%E5%B1%95%E7%A4%BA%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C/index.html">
+<meta property="og:site_name" content="Charli">
+<meta property="og:description" content="create-react-app创建项目并用git上传至GitHub及展示预览效果">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://charli-719.github.io/create-react-app%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E7%94%A8git%E4%B8%8A%E4%BC%A0%E8%87%B3GitHub%E5%8F%8A%E5%B1%95%E7%A4%BA%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C/balloon.jpg">
+<meta property="article:published_time" content="2019-07-16T05:00:33.000Z">
+<meta property="article:modified_time" content="2022-05-24T10:36:01.232Z">
+<meta property="article:author" content="Charli">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://charli-719.github.io/create-react-app%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E7%94%A8git%E4%B8%8A%E4%BC%A0%E8%87%B3GitHub%E5%8F%8A%E5%B1%95%E7%A4%BA%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C/balloon.jpg">
+
+
+<link rel="canonical" href="https://charli-719.github.io/2019/07/16/2019/create-react-app%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E7%94%A8git%E4%B8%8A%E4%BC%A0%E8%87%B3GitHub%E5%8F%8A%E5%B1%95%E7%A4%BA%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://charli-719.github.io/2019/07/16/2019/create-react-app%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E7%94%A8git%E4%B8%8A%E4%BC%A0%E8%87%B3GitHub%E5%8F%8A%E5%B1%95%E7%A4%BA%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C/","path":"2019/07/16/2019/create-react-app创建项目并用git上传至GitHub及展示预览效果/","title":"create-react-app创建项目并用git上传至GitHub及展示预览效果"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>create-react-app创建项目并用git上传至GitHub及展示预览效果 | Charli</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Charli" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Charli</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">梦想的起源</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Charli</p>
+  <div class="site-description" itemprop="description">不积跬步，无以至千里</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://charli-719.github.io/2019/07/16/2019/create-react-app%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E7%94%A8git%E4%B8%8A%E4%BC%A0%E8%87%B3GitHub%E5%8F%8A%E5%B1%95%E7%A4%BA%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Charli">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Charli">
+      <meta itemprop="description" content="不积跬步，无以至千里">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="create-react-app创建项目并用git上传至GitHub及展示预览效果 | Charli">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          create-react-app创建项目并用git上传至GitHub及展示预览效果
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-16 13:00:33" itemprop="dateCreated datePublished" datetime="2019-07-16T13:00:33+08:00">2019-07-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-24 18:36:01" itemprop="dateModified" datetime="2022-05-24T18:36:01+08:00">2022-05-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>create-react-app创建项目并用git上传至GitHub及展示预览效果<br><img src="/create-react-app%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E7%94%A8git%E4%B8%8A%E4%BC%A0%E8%87%B3GitHub%E5%8F%8A%E5%B1%95%E7%A4%BA%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C/balloon.jpg" alt="balloon"></p>
+<span id="more"></span>
+
+<p>1、在本地中创建一个项目所在的文件夹</p>
+<p>2、npm -g create-react-app</p>
+<p>3、在此文件夹下 create-react-app react-demo (项目名)</p>
+<p>4、cd react-demo</p>
+<p>5、npm start（等待一会浏览器自动开启）</p>
+<p>6、开始噼里啪啦写你需要的代码</p>
+<p>7、（重点）在package.json配置文件中加一句：　“homepage”: “.&#x2F;” （为下面打包做准备，如果不加这句话，那么在预览时开启的页面空白，原因路径不对）</p>
+<p>8、npm run build（打包）</p>
+<p>9、在你的GitHub上新建个仓库，把地址复制下来备用</p>
+<p>10、项目所在文件夹下git init</p>
+<p>11、git add . （点的意思是所有文件，把所有文件添加上去）</p>
+<p>12、git commit -m “xxxxxxxxxx”（提交信息）</p>
+<p>13、git remote add origin <a target="_blank" rel="noopener" href="https://github.com/xxx/xxx%EF%BC%88%E5%88%9A%E6%89%8D%E4%BD%A0%E5%9C%A8GitHub%E4%B8%8A%E4%BF%9D%E5%AD%98%E7%9A%84%E5%9C%B0%E5%9D%80%EF%BC%89">https://github.com/xxx/xxx（刚才你在GitHub上保存的地址）</a></p>
+<p>14、git pull origin master（上传之前先拉一下，第一次不拉也行，但是之后提交最好想成这个习惯）</p>
+<p>15、git push -u origin master（把你的代码提到GitHub上）</p>
+<p>16、此时，在GitHub对应的仓库上，就可以看到刚才提交的代码了。</p>
+<p>17、点击“setting”；找到GitHub Pages，source中点击下面按钮切换到master branch，点击save；就可以看到一个链接了，点击链接，发现出现的是你项目中的README.md；</p>
+<p>18、在链接后面加上   &#x2F;build&#x2F;#    回车后，即可看到预览效果。 </p>
+<p>19、之后的修改代码后，重新npm run build ，重复11~15步骤即可。</p>
+<p>tips： 如果发现build文件夹没有上传至github上，在.gitignore文件中把忽略build的代码删除掉就可以了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/22/2019/react%E5%AE%9E%E7%8E%B0%E6%8A%BD%E5%A5%96%E5%A4%A7%E8%BD%AC%E7%9B%98/" rel="prev" title="react实现抽奖大转盘">
+                  <i class="fa fa-chevron-left"></i> react实现抽奖大转盘
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/22/2019/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E9%80%9F%E6%9F%A5%E8%A1%A8/" rel="next" title="Git常用命令速查表">
+                  Git常用命令速查表 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Charli</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

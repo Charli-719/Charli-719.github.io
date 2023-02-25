@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"charli-719.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本周面试题一览:   节流(throttle)函数的作用是什么？有哪些应用场景，请实现一个节流函数 说一说你对JS执行上下文栈和作用域链的理解？ 什么是BFC？BFC的布局规则是什么？如何创建BFC？ let、const、var 的区别有哪些？ 深拷贝和浅拷贝的区别是什么？如何实现一个深拷贝？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试题深入解析-01">
+<meta property="og:url" content="https://charli-719.github.io/2019/06/04/2019/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/index.html">
+<meta property="og:site_name" content="Charli">
+<meta property="og:description" content="本周面试题一览:   节流(throttle)函数的作用是什么？有哪些应用场景，请实现一个节流函数 说一说你对JS执行上下文栈和作用域链的理解？ 什么是BFC？BFC的布局规则是什么？如何创建BFC？ let、const、var 的区别有哪些？ 深拷贝和浅拷贝的区别是什么？如何实现一个深拷贝？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/01.webp">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/02.webp">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/03.jpg">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/04.png">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/05.jpg">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/06.jpg">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/07.jpg">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/08.jpg">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/09.webp">
+<meta property="og:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/10.webp">
+<meta property="article:published_time" content="2019-06-04T10:20:22.000Z">
+<meta property="article:modified_time" content="2022-05-24T10:36:00.677Z">
+<meta property="article:author" content="Charli">
+<meta property="article:tag" content="前端面试题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://charli-719.github.io/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/01.webp">
+
+
+<link rel="canonical" href="https://charli-719.github.io/2019/06/04/2019/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://charli-719.github.io/2019/06/04/2019/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/","path":"2019/06/04/2019/前端面试题深入解析-01/","title":"前端面试题深入解析-01"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>前端面试题深入解析-01 | Charli</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Charli" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Charli</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">梦想的起源</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8A%82%E6%B5%81-throttle-%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%8C%E8%AF%B7%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">节流(throttle)函数的作用是什么？有哪些应用场景，请实现一个节流函数。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">节流函数的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E6%B5%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.2.</span> <span class="nav-text">节流应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.</span> <span class="nav-text">节流函数实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E4%B8%80%E8%AF%B4%E4%BD%A0%E5%AF%B9JS%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">说一说你对JS执行上下文栈和作用域链的理解？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">2.1.</span> <span class="nav-text">JS执行上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">2.2.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88-%E5%90%8E%E9%9D%A2%E7%AE%80%E7%A7%B0%E6%89%A7%E8%A1%8C%E6%A0%88"><span class="nav-number">2.3.</span> <span class="nav-text">JS执行上下文栈(后面简称执行栈)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE"><span class="nav-number">2.4.</span> <span class="nav-text">作用域链</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFBFC%EF%BC%9FBFC%E7%9A%84%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BABFC%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">什么是BFC？BFC的布局规则是什么？如何创建BFC？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFBFC%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">什么是BFC？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Box"><span class="nav-number">3.2.</span> <span class="nav-text">Box</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Formatting-Context"><span class="nav-number">3.3.</span> <span class="nav-text">Formatting Context</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99"><span class="nav-number">3.4.</span> <span class="nav-text">BFC布局规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BABFC"><span class="nav-number">3.5.</span> <span class="nav-text">如何创建BFC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">3.6.</span> <span class="nav-text">BFC的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-let%E3%80%81const%E3%80%81var-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">4. let、const、var 的区别有哪些？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-let-x2F-const-%E5%AE%9A%E4%B9%89%E7%9A%84%E5%8F%98%E9%87%8F%E4%B8%8D%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%EF%BC%8C%E8%80%8C-var-%E5%AE%9A%E4%B9%89%E7%9A%84%E5%8F%98%E9%87%8F%E4%BC%9A%E6%8F%90%E5%8D%87%E3%80%82"><span class="nav-number">4.1.</span> <span class="nav-text">1.let&#x2F;const 定义的变量不会出现变量提升，而 var 定义的变量会提升。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%9B%B8%E5%90%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%AD%EF%BC%8Clet-%E5%92%8C-const-%E4%B8%8D%E5%85%81%E8%AE%B8%E9%87%8D%E5%A4%8D%E5%A3%B0%E6%98%8E%EF%BC%8Cvar-%E5%85%81%E8%AE%B8%E9%87%8D%E5%A4%8D%E5%A3%B0%E6%98%8E%E3%80%82"><span class="nav-number">4.2.</span> <span class="nav-text">2.相同作用域中，let 和 const 不允许重复声明，var 允许重复声明。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-const-%E5%A3%B0%E6%98%8E%E5%8F%98%E9%87%8F%E6%97%B6%E5%BF%85%E9%A1%BB%E8%AE%BE%E7%BD%AE%E5%88%9D%E5%A7%8B%E5%80%BC"><span class="nav-number">4.3.</span> <span class="nav-text">3.const 声明变量时必须设置初始值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-const-%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E5%8F%AA%E8%AF%BB%E7%9A%84%E5%B8%B8%E9%87%8F%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%B8%B8%E9%87%8F%E4%B8%8D%E5%8F%AF%E6%94%B9%E5%8F%98%E3%80%82"><span class="nav-number">4.4.</span> <span class="nav-text">4.const 声明一个只读的常量，这个常量不可改变。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-let-x2F-const-%E5%A3%B0%E6%98%8E%E7%9A%84%E5%8F%98%E9%87%8F%E4%BB%85%E5%9C%A8%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%AD%E6%9C%89%E6%95%88%E3%80%82%E8%80%8C-var-%E5%A3%B0%E6%98%8E%E7%9A%84%E5%8F%98%E9%87%8F%E5%9C%A8%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%A4%96%E4%BB%8D%E8%83%BD%E8%AE%BF%E9%97%AE%E5%88%B0%E3%80%82"><span class="nav-number">4.5.</span> <span class="nav-text">5.let&#x2F;const 声明的变量仅在块级作用域中有效。而 var 声明的变量在块级作用域外仍能访问到。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E9%A1%B6%E5%B1%82%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%AD-var-%E5%A3%B0%E6%98%8E%E7%9A%84%E5%8F%98%E9%87%8F%E6%8C%82%E5%9C%A8window%E4%B8%8A-%E6%B5%8F%E8%A7%88%E5%99%A8%E7%8E%AF%E5%A2%83"><span class="nav-number">4.6.</span> <span class="nav-text">6、顶层作用域中 var 声明的变量挂在window上(浏览器环境)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81let-x2F-const%E6%9C%89%E6%9A%82%E6%97%B6%E6%80%A7%E6%AD%BB%E5%8C%BA%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E5%8D%B3let-x2F-const-%E5%A3%B0%E6%98%8E%E7%9A%84%E5%8F%98%E9%87%8F%EF%BC%8C%E5%9C%A8%E5%AE%9A%E4%B9%89%E4%B9%8B%E5%89%8D%E9%83%BD%E6%98%AF%E4%B8%8D%E5%8F%AF%E7%94%A8%E7%9A%84%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%BF%E7%94%A8%E4%BC%9A%E6%8A%9B%E5%87%BA%E9%94%99%E8%AF%AF%E3%80%82"><span class="nav-number">4.7.</span> <span class="nav-text">7、let&#x2F;const有暂时性死区的问题，即let&#x2F;const 声明的变量，在定义之前都是不可用的。如果使用会抛出错误。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5%E3%80%81%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E6%B7%B1%E6%8B%B7%E8%B4%9D%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">5、深拷贝和浅拷贝的区别是什么？如何实现一个深拷贝？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">5.1.</span> <span class="nav-text">深拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="nav-number">5.2.</span> <span class="nav-text">浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.3.</span> <span class="nav-text">深拷贝实现</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Charli</p>
+  <div class="site-description" itemprop="description">不积跬步，无以至千里</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://charli-719.github.io/2019/06/04/2019/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Charli">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Charli">
+      <meta itemprop="description" content="不积跬步，无以至千里">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="前端面试题深入解析-01 | Charli">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端面试题深入解析-01
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-06-04 18:20:22" itemprop="dateCreated datePublished" datetime="2019-06-04T18:20:22+08:00">2019-06-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-24 18:36:00" itemprop="dateModified" datetime="2022-05-24T18:36:00+08:00">2022-05-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>本周面试题一览:</p>
+</blockquote>
+<ul>
+<li>节流(throttle)函数的作用是什么？有哪些应用场景，请实现一个节流函数</li>
+<li>说一说你对JS执行上下文栈和作用域链的理解？</li>
+<li>什么是BFC？BFC的布局规则是什么？如何创建BFC？</li>
+<li>let、const、var 的区别有哪些？</li>
+<li>深拷贝和浅拷贝的区别是什么？如何实现一个深拷贝？</li>
+</ul>
+<span id="more"></span>
+<h1 id="节流-throttle-函数的作用是什么？有哪些应用场景，请实现一个节流函数。"><a href="#节流-throttle-函数的作用是什么？有哪些应用场景，请实现一个节流函数。" class="headerlink" title="节流(throttle)函数的作用是什么？有哪些应用场景，请实现一个节流函数。"></a>节流(throttle)函数的作用是什么？有哪些应用场景，请实现一个节流函数。</h1><h2 id="节流函数的作用"><a href="#节流函数的作用" class="headerlink" title="节流函数的作用"></a>节流函数的作用</h2><p>节流函数的作用是规定一个单位时间，在这个单位时间内最多只能触发一次函数执行，如果这个单位时间内多次触发函数，只有一次生效！</p>
+<p>举例说明：小明的妈妈和小明约定好，如果小明在周考中取得满分，那么当月可以带他去游乐场玩，但是一个月最多只能去一次。</p>
+<p>这其实就是一个节流的例子，在一个月的时间内，这个时间周期内，小明取得多次满分，去游乐场最多只能触发一次。</p>
+<h2 id="节流应用场景"><a href="#节流应用场景" class="headerlink" title="节流应用场景"></a>节流应用场景</h2><p>1、按钮点击事件<br>2、拖拽事件<br>3、onScroll<br>4、计算鼠标移动的距离（mousemove）</p>
+<h2 id="节流函数实现"><a href="#节流函数实现" class="headerlink" title="节流函数实现"></a>节流函数实现</h2><blockquote>
+<p>利用时间戳实现</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, delay) &#123;</span><br><span class="line">    var lastTime = 0;</span><br><span class="line">    function throttled() &#123;</span><br><span class="line">        var context = this;</span><br><span class="line">        var args = arguments;</span><br><span class="line">        var nowTime = Date.now();</span><br><span class="line">        if (nowTime &gt; lastTime + delay) &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">            lastTime = nowTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">//防抖函数最终返回的是一个函数</span><br><span class="line">    return throttled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>利用定时器实现</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, delay) &#123;</span><br><span class="line">    var timeout = null;</span><br><span class="line">    function throttled() &#123;</span><br><span class="line">        var context = this;</span><br><span class="line">        var args = arguments;</span><br><span class="line">        if (!timeout) &#123;</span><br><span class="line">            timeout = setTimeout(()=&gt;&#123;</span><br><span class="line">                func.apply(context, args);</span><br><span class="line">                clearTimeout(timeout);</span><br><span class="line">                timeout = null</span><br><span class="line">                &#125;, delay);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return throttled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间戳和定时器的方式都没有考虑最后一次执行的问题，比如有个按钮点击事件，设置的间隔时间是1S，在第0.5S，1.8S，2.2S点击，那么只有0.5S和1.8S的两次点击能够触发函数执行，而最后一次的2.2S会被忽略。</p>
+<blockquote>
+<p>组合实现，允许设置第一次或者最后一次是否触发函数执行</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, wait, options) &#123;</span><br><span class="line">    var timeout, context, args, result;</span><br><span class="line">    var previous = 0;</span><br><span class="line">    if (!options) options = &#123;&#125;;</span><br><span class="line">    var later = function () &#123;</span><br><span class="line">        previous = options.leading === false ? 0 : Date.now() || new Date().getTime();</span><br><span class="line">        timeout = null;</span><br><span class="line">        result = func.apply(context, args);</span><br><span class="line">        if (!timeout) context = args = null;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    var throttled = function () &#123;</span><br><span class="line">        var now = Date.now() || new Date().getTime();</span><br><span class="line">        if (!previous &amp;&amp; options.leading === false) previous = now;</span><br><span class="line">        var remaining = wait - (now - previous);</span><br><span class="line">        context = this;</span><br><span class="line">        args = arguments;</span><br><span class="line">        if (remaining &lt;= 0 || remaining &gt; wait) &#123;</span><br><span class="line">            if (timeout) &#123;</span><br><span class="line">                clearTimeout(timeout);</span><br><span class="line">                timeout = null;</span><br><span class="line">            &#125;</span><br><span class="line">            previous = now;</span><br><span class="line">            result = func.apply(context, args);</span><br><span class="line">            if (!timeout) context = args = null;</span><br><span class="line">        &#125; else if (!timeout &amp;&amp; options.trailing !== false) &#123;</span><br><span class="line">// 判断是否设置了定时器和 trailing</span><br><span class="line">            timeout = setTimeout(later, remaining);</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;;</span><br><span class="line">    throttled.cancel = function () &#123;</span><br><span class="line">            clearTimeout(timeout);</span><br><span class="line">            previous = 0;</span><br><span class="line">            timeout = context = args = null;</span><br><span class="line">    &#125;;</span><br><span class="line">    return throttled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用简单:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">btn . onclick = throttle(handle ,1000,&#123;leading:true ,trailing:true&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="说一说你对JS执行上下文栈和作用域链的理解？"><a href="#说一说你对JS执行上下文栈和作用域链的理解？" class="headerlink" title="说一说你对JS执行上下文栈和作用域链的理解？"></a>说一说你对JS执行上下文栈和作用域链的理解？</h1><p>在开始说明JS上下文栈和作用域之前，我们先说明下JS上下文以及作用域的概念。</p>
+<h2 id="JS执行上下文"><a href="#JS执行上下文" class="headerlink" title="JS执行上下文"></a>JS执行上下文</h2><p>执行上下文就是当前 JavaScript 代码被解析和执行时所在环境的抽象概念， JavaScript 中运行任何的代码都是在执行上下文中运行。</p>
+<blockquote>
+<p>执行上下文类型分为：</p>
+</blockquote>
+<ul>
+<li>全局执行上下文</li>
+<li>函数执行上下文</li>
+<li>eval函数执行上下文(不被推荐)</li>
+</ul>
+<p>执行上下文创建过程中，需要做以下几件事:<br>    1、创建变量对象：首先初始化函数的参数arguments，提升函数声明和变量声明。<br>    2、创建作用域链（Scope Chain）：在执行期上下文的创建阶段，作用域链是在变量对象之后创建的。<br>    3、确定this的值，即 ResolveThisBinding</p>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>作用域负责收集和维护由所有声明的标识符（变量）组成的一系列查询，并实施一套非常严格的规则，确定当前执行的代码对这些标识符的访问权限。—— 摘录自《你不知道的JavaScript》(上卷)</p>
+<p>作用域有两种工作模型：词法作用域和动态作用域，JS采用的是词法作用域工作模型，词法作用域意味着作用域是由书写代码时变量和函数声明的位置决定的。( with 和 eval 能够修改词法作用域，但是不推荐使用，对此不做特别说明)</p>
+<blockquote>
+<p>作用域分为：</p>
+</blockquote>
+<ul>
+<li>全局作用域</li>
+<li>函数作用域</li>
+<li>块级作用域</li>
+</ul>
+<h2 id="JS执行上下文栈-后面简称执行栈"><a href="#JS执行上下文栈-后面简称执行栈" class="headerlink" title="JS执行上下文栈(后面简称执行栈)"></a>JS执行上下文栈(后面简称执行栈)</h2><p>执行栈，也叫做调用栈，具有 LIFO (后进先出) 结构，用于存储在代码执行期间创建的所有执行上下文。</p>
+<blockquote>
+<p>规则如下：</p>
+</blockquote>
+<ul>
+<li>首次运行JavaScript代码的时候,会创建一个全局执行的上下文并Push到当前的执行栈中，每当发生函数调用，引擎都会为该函数创建一个新的函数执行上下文并Push当前执行栈的栈顶。</li>
+<li>当栈顶的函数运行完成后，其对应的函数执行上下文将会从执行栈中Pop出，上下文的控制权将移动到当前执行栈的下一个执行上下文。</li>
+</ul>
+<p>以一段代码具体说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function fun3() &#123;</span><br><span class="line">    console.log(&#x27;fun3&#x27;)</span><br><span class="line">&#125;</span><br><span class="line">function fun2() &#123;</span><br><span class="line">    fun3();</span><br><span class="line">&#125;</span><br><span class="line">function fun1() &#123;</span><br><span class="line">    fun2();</span><br><span class="line">&#125;</span><br><span class="line">fun1();</span><br></pre></td></tr></table></figure>
+<p>GlobalExecutionContext (即全局执行上下文)首先入栈，过程如下：<br><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/01.webp" alt="01"></p>
+<p>伪代码:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//全局执行上下文首先入栈</span><br><span class="line">ECStack.push (     globalContext );</span><br><span class="line">//执行fun1();</span><br><span class="line">ECStack. push (&lt;     fun1 &gt;     functionContext     ); </span><br><span class="line">//fun1中又调用了fun2;</span><br><span class="line">ECStack . push (&lt;fun2&gt;functionContext );</span><br><span class="line">//fun2中又调用了fun3;</span><br><span class="line">ECStack . push (&lt;fun3&gt;functionContext ); </span><br><span class="line">//fun3执行完毕</span><br><span class="line">ECStack . pop ();</span><br><span class="line">//fun2执行完毕</span><br><span class="line">ECStack . pop ();</span><br><span class="line">//fun1执行完毕</span><br><span class="line">ECStack . pop (); </span><br><span class="line">//javascript继续顺序执行下面的代码，但ECStack底部始终有一个 全局上下文（globalContext）;</span><br></pre></td></tr></table></figure>
+
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><p>作用域链就是从当前作用域开始一层一层向上寻找某个变量，直到找到全局作用域还是没找到，就宣布放弃。这种一层一层的关系，就是作用域链。</p>
+<p>如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = 10;</span><br><span class="line">function fn1() &#123;</span><br><span class="line">    var b = 20;</span><br><span class="line">    console.log(fn2)</span><br><span class="line">    function fn2() &#123;</span><br><span class="line">        a = 20</span><br><span class="line">    &#125;</span><br><span class="line">    return fn2;</span><br><span class="line">&#125;</span><br><span class="line">fn1()();</span><br></pre></td></tr></table></figure>
+
+<p>fn2作用域链 &#x3D; [fn2作用域, fn1作用域，全局作用域]<br><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/02.webp" alt="02"></p>
+<h1 id="什么是BFC？BFC的布局规则是什么？如何创建BFC？"><a href="#什么是BFC？BFC的布局规则是什么？如何创建BFC？" class="headerlink" title="什么是BFC？BFC的布局规则是什么？如何创建BFC？"></a>什么是BFC？BFC的布局规则是什么？如何创建BFC？</h1><h2 id="什么是BFC？"><a href="#什么是BFC？" class="headerlink" title="什么是BFC？"></a>什么是BFC？</h2><p>BFC 是 Block Formatting Context 的缩写，即块格式化上下文。我们来看一下CSS2.1规范中对 BFC 的说明。</p>
+<blockquote>
+<p>Floats, absolutely positioned elements, block containers (such as inline-blocks, table-cells, and table-captions) that are not block boxes, and block boxes with ‘overflow’ other than ‘visible’ (except when that value has been propagated to the viewport) establish new block formatting contexts for their contents.<br>  浮动、绝对定位的元素、非块级盒子的块容器（如inline-blocks、table-cells 和 table-captions），以及 overflow的值不为 visible（该值已传播到视区时除外）为其内容建立新的块格式上下文。</p>
+</blockquote>
+<p>因此，如果想要深入的理解BFC，我们需要了解以下两个概念：</p>
+<blockquote>
+<p>1.Box<br>  2.Formatting Context</p>
+</blockquote>
+<h2 id="Box"><a href="#Box" class="headerlink" title="Box"></a>Box</h2><p>Box 是 CSS 布局的对象和基本单位，页面是由若干个Box组成的。</p>
+<p>元素的类型 和 display 属性，决定了这个 Box 的类型。不同类型的 Box 会参与不同的 Formatting Context。</p>
+<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>Formatting Context 是页面的一块渲染区域，并且有一套渲染规则，决定了其子元素将如何定位，以及和其它元素的关系和相互作用。</p>
+<p>Formatting Context 有 BFC (Block formatting context)，IFC (Inline formatting context)，FFC (Flex formatting context) 和 GFC (Grid formatting context)。FFC 和 GFC 为 CC3 中新增。</p>
+<h2 id="BFC布局规则"><a href="#BFC布局规则" class="headerlink" title="BFC布局规则"></a>BFC布局规则</h2><ul>
+<li>BFC内，盒子依次垂直排列。</li>
+<li>BFC内，两个盒子的垂直距离由 margin 属性决定。属于同一个BFC的两个相邻Box的margin会发生重叠【符合合并原则的margin合并后是使用大的margin】</li>
+<li>BFC内，每个盒子的左外边缘接触内部盒子的左边缘（对于从右到左的格式，右边缘接触）。即使在存在浮动的情况下也是如此。除非创建新的BFC。</li>
+<li>BFC的区域不会与float box重叠。</li>
+<li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</li>
+<li>计算BFC的高度时，浮动元素也参与计算。</li>
+</ul>
+<h2 id="如何创建BFC"><a href="#如何创建BFC" class="headerlink" title="如何创建BFC"></a>如何创建BFC</h2><p>根元素</p>
+<ul>
+<li>浮动元素（float 属性不为 none）</li>
+<li>position 为 absolute 或 relative</li>
+<li>overflow 不为 visible 的块元素</li>
+<li>display 为 inline-block, table-cell, table-caption</li>
+</ul>
+<h2 id="BFC的应用"><a href="#BFC的应用" class="headerlink" title="BFC的应用"></a>BFC的应用</h2><p>1.防止 margin 重叠</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    . a&#123;</span><br><span class="line">    height:100px;</span><br><span class="line">    width:100px;</span><br><span class="line">    margin:50px;</span><br><span class="line">    background:pink;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt; body &gt;</span><br><span class="line">&lt;div className=&quot;a&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div className=&quot;a&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt; /body&gt;</span><br></pre></td></tr></table></figure>
+<p>两个div直接的 margin 是50px，发生了 margin 的重叠。<br><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/03.jpg" alt="03"></p>
+<blockquote>
+<p>根据BFC规则，同一个BFC内的两个两个相邻Box的 margin 会发生重叠，因此我们可以在div外面再嵌套一层容器，并且触发该容器生成一个 BFC，这样 &lt;divclass&#x3D;”a”&gt;</div> 就会属于两个 BFC，自然也就不会再发生 margin 重叠</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    . a&#123;</span><br><span class="line">    height:100px;</span><br><span class="line">    width:100px;</span><br><span class="line">    margin:50px;</span><br><span class="line">    background:pink;</span><br><span class="line">    &#125;</span><br><span class="line">    .container&#123;</span><br><span class="line">    overflow:auto;/*触发生成BFC*/</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt; body &gt;</span><br><span class="line">&lt;div className=&quot;container&quot;&gt;</span><br><span class="line">    &lt; div className = &quot;a&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div className=&quot;a&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt; /body&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/04.png" alt="04"></p>
+<p>2.清除内部浮动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">   . a&#123;</span><br><span class="line">   height:100px;</span><br><span class="line">   width:100px;</span><br><span class="line">   margin:5px;</span><br><span class="line">   background:pink;</span><br><span class="line">   float: left;</span><br><span class="line">   &#125;</span><br><span class="line">   .container&#123;</span><br><span class="line">       width: 120px;</span><br><span class="line">       border: 2px solid black;</span><br><span class="line">   &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt; body &gt;</span><br><span class="line">    &lt;div className=&quot;container&quot;&gt;</span><br><span class="line">       &lt; div className = &quot;a&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt; /body&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/05.jpg" alt="05"></p>
+<blockquote>
+<p>container 的高度没有被撑开，如果我们希望 container 的高度能够包含浮动元素，那么可以创建一个新的 BFC，因为根据 BFC 的规则，计算 BFC 的高度时，浮动元素也参与计算。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">   . a&#123;</span><br><span class="line">   height:100px;</span><br><span class="line">   width:100px;</span><br><span class="line">   margin:50px;</span><br><span class="line">   background:pink;</span><br><span class="line">   float: left;</span><br><span class="line">   &#125;</span><br><span class="line">   .container&#123;</span><br><span class="line">       display: inline-block;/*触发生成BFC*/</span><br><span class="line">       border: 2px solid black;</span><br><span class="line">   &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/06.jpg" alt="06"></p>
+<p>3.自适应多栏布局</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    body&#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">    &#125;</span><br><span class="line">   . a&#123;</span><br><span class="line">   height:150px;</span><br><span class="line">   width:100px;</span><br><span class="line">   background:pink;</span><br><span class="line">   float: left;</span><br><span class="line">   &#125;</span><br><span class="line">   .b&#123;</span><br><span class="line">       height: 200px;</span><br><span class="line">       background:blue;</span><br><span class="line">   &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div className = &quot;a&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div className = &quot;b&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt; /body&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/07.jpg" alt="07"></p>
+<blockquote>
+<p>根据规则，BFC的区域不会与float box重叠。因此，可以触发生成一个新的BFC，如下：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">   .b&#123;</span><br><span class="line">       height: 200px;</span><br><span class="line">       overflow: hidden;/*触发生成BFC*/</span><br><span class="line">       background:blue;</span><br><span class="line">   &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/08.jpg" alt="08"></p>
+<h1 id="4-let、const、var-的区别有哪些？"><a href="#4-let、const、var-的区别有哪些？" class="headerlink" title="4. let、const、var 的区别有哪些？"></a>4. let、const、var 的区别有哪些？</h1><table>
+<thead>
+<tr>
+<th align="center">声明方式</th>
+<th align="center">变量提升</th>
+<th align="center">暂时性死区</th>
+<th align="center">重复声明</th>
+<th align="center">块作用域有效</th>
+<th align="center">初始值</th>
+<th align="center">重新赋值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">var</td>
+<td align="center">会</td>
+<td align="center">不存在</td>
+<td align="center">允许</td>
+<td align="center">不是</td>
+<td align="center">非必须</td>
+<td align="center">允许</td>
+</tr>
+<tr>
+<td align="center">let</td>
+<td align="center">不会</td>
+<td align="center">存在</td>
+<td align="center">不允许</td>
+<td align="center">是</td>
+<td align="center">非必须</td>
+<td align="center">允许</td>
+</tr>
+<tr>
+<td align="center">const</td>
+<td align="center">不会</td>
+<td align="center">存在</td>
+<td align="center">不允许</td>
+<td align="center">是</td>
+<td align="center">必须</td>
+<td align="center">不允许</td>
+</tr>
+</tbody></table>
+<h2 id="1-let-x2F-const-定义的变量不会出现变量提升，而-var-定义的变量会提升。"><a href="#1-let-x2F-const-定义的变量不会出现变量提升，而-var-定义的变量会提升。" class="headerlink" title="1.let&#x2F;const 定义的变量不会出现变量提升，而 var 定义的变量会提升。"></a>1.let&#x2F;const 定义的变量不会出现变量提升，而 var 定义的变量会提升。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a =10;</span><br><span class="line">var a;//正常</span><br><span class="line"></span><br><span class="line">a =10;</span><br><span class="line">let a; //ReferenceError</span><br></pre></td></tr></table></figure>
+<h2 id="2-相同作用域中，let-和-const-不允许重复声明，var-允许重复声明。"><a href="#2-相同作用域中，let-和-const-不允许重复声明，var-允许重复声明。" class="headerlink" title="2.相同作用域中，let 和 const 不允许重复声明，var 允许重复声明。"></a>2.相同作用域中，let 和 const 不允许重复声明，var 允许重复声明。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let a =10;</span><br><span class="line">var a= 20;</span><br><span class="line">//抛出异常:SyntaxError:Identifier &#x27;a&#x27; has already been declared</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-const-声明变量时必须设置初始值"><a href="#3-const-声明变量时必须设置初始值" class="headerlink" title="3.const 声明变量时必须设置初始值"></a>3.const 声明变量时必须设置初始值</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const a;//SyntaxError: Missing initializer in const declaration</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-const-声明一个只读的常量，这个常量不可改变。"><a href="#4-const-声明一个只读的常量，这个常量不可改变。" class="headerlink" title="4.const 声明一个只读的常量，这个常量不可改变。"></a>4.const 声明一个只读的常量，这个常量不可改变。</h2><p>这里有一个非常重要的点即是：复杂数据类型，存储在栈中的是堆内存的地址，存在栈中的这个地址是不变的，但是存在堆中的值是可以变得。有没有相当常量指针&#x2F;指针常量~</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const a = 10;</span><br><span class="line">const b =&#123;</span><br><span class="line">    age: 18,</span><br><span class="line">    star: 500</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一图胜万言，如下图所示，不变的是栈内存中 a 存储的 10，和 b 中存储的 0x0012ff21（瞎编的一个数字）。而 {age: 18, star: 200} 是可变的。思考下如果想希望一个对象是不可变的，应该用什么方法？<br><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/09.webp" alt="09"></p>
+<h2 id="5-let-x2F-const-声明的变量仅在块级作用域中有效。而-var-声明的变量在块级作用域外仍能访问到。"><a href="#5-let-x2F-const-声明的变量仅在块级作用域中有效。而-var-声明的变量在块级作用域外仍能访问到。" class="headerlink" title="5.let&#x2F;const 声明的变量仅在块级作用域中有效。而 var 声明的变量在块级作用域外仍能访问到。"></a>5.let&#x2F;const 声明的变量仅在块级作用域中有效。而 var 声明的变量在块级作用域外仍能访问到。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">let a = 10;</span><br><span class="line">const b =20;</span><br><span class="line">var c = 30;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a);//ReferenceError</span><br><span class="line">console.log(b);//ReferenceError</span><br><span class="line">console.log(c);//30</span><br></pre></td></tr></table></figure>
+<p>在 let&#x2F;const 之前，最早学习JS的时候，也曾被下面这个问题困扰：<br>期望： a【0】()输出0,a【1】()输出1,a【2】()输出2,…</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a = [];</span><br><span class="line">for(var i =0; i&lt;10;i++)&#123;</span><br><span class="line">    a[i]= function()&#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line">a[6]();//10</span><br></pre></td></tr></table></figure>
+<p><img src="/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90-01/10.webp" alt="10"></p>
+<p>虽然后来知道了为什么，但是想要得到自己需要的结果，还得整个闭包，我…我做错了什么，要这么对我…</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a = [];</span><br><span class="line">   for(var i =0; i&lt;10;i++)&#123;</span><br><span class="line">       a[i]= (function(j)&#123;</span><br><span class="line">        return function()&#123;</span><br><span class="line">            console.log(j);</span><br><span class="line">        &#125;   </span><br><span class="line">      &#125;)(i);</span><br><span class="line">   &#125;</span><br><span class="line">   a[6]();//10</span><br></pre></td></tr></table></figure>
+<p>有了 let 之后，终于不要这么麻烦了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a = [];</span><br><span class="line">for(let i =0; i&lt;10;i++)&#123;</span><br><span class="line">    a[i]= function()&#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line">a[6]();//10</span><br></pre></td></tr></table></figure>
+<p>美滋滋，有没有~</p>
+<p>美是美了，但是总得问自己为什么吧~</p>
+<p>vari 为什么输出的是 10，这是因为 i 在全局范围内都是有效的，相当于只有一个变量 i，等执行到 a【6】() 的时候，这个 i 的值是什么？请大声说出来。</p>
+<p>再看 let , 我们说 let 声明的变量仅在块级作用域内有效，变量i是let声明的，当前的 i 只在本轮循环有效，所以每一次循环的 i 其实都是一个新的变量。有兴趣的小伙伴可以查看 babel 编译后的代码。</p>
+<h2 id="6、顶层作用域中-var-声明的变量挂在window上-浏览器环境"><a href="#6、顶层作用域中-var-声明的变量挂在window上-浏览器环境" class="headerlink" title="6、顶层作用域中 var 声明的变量挂在window上(浏览器环境)"></a>6、顶层作用域中 var 声明的变量挂在window上(浏览器环境)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = 10;</span><br><span class="line">consle.log(window.a);//10</span><br></pre></td></tr></table></figure>
+
+<h2 id="7、let-x2F-const有暂时性死区的问题，即let-x2F-const-声明的变量，在定义之前都是不可用的。如果使用会抛出错误。"><a href="#7、let-x2F-const有暂时性死区的问题，即let-x2F-const-声明的变量，在定义之前都是不可用的。如果使用会抛出错误。" class="headerlink" title="7、let&#x2F;const有暂时性死区的问题，即let&#x2F;const 声明的变量，在定义之前都是不可用的。如果使用会抛出错误。"></a>7、let&#x2F;const有暂时性死区的问题，即let&#x2F;const 声明的变量，在定义之前都是不可用的。如果使用会抛出错误。</h2><p>只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a= 10;</span><br><span class="line">if(true)&#123;</span><br><span class="line">    a = 20;//ReferenceError</span><br><span class="line">    let a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在代码块内，使用 let&#x2F;const 命令声明变量之前，该变量都是不可用的，也就意味着 typeof 不再是一个百分百安全的操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(typeof b);//undefined</span><br><span class="line">console.log(a);ReferenceError</span><br><span class="line">let a = 10;</span><br></pre></td></tr></table></figure>
+
+<h1 id="5、深拷贝和浅拷贝的区别是什么？如何实现一个深拷贝？"><a href="#5、深拷贝和浅拷贝的区别是什么？如何实现一个深拷贝？" class="headerlink" title="5、深拷贝和浅拷贝的区别是什么？如何实现一个深拷贝？"></a>5、深拷贝和浅拷贝的区别是什么？如何实现一个深拷贝？</h1><p>深拷贝和浅拷贝是针对复杂数据类型来说的。</p>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><blockquote>
+<p>深拷贝复制变量值，对于非基本类型的变量，则递归至基本类型变量后，再复制。 深拷贝后的对象与原来的对象是完全隔离的，互不影响，对一个对象的修改并不会影响另一个对象。</p>
+</blockquote>
+<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><blockquote>
+<p>浅拷贝是会将对象的每个属性进行依次复制，但是当对象的属性值是引用类型时，实质复制的是其引用，当引用指向的值改变时也会跟着变化。</p>
+</blockquote>
+<p>可以使用 for in、 Object.assign、 扩展运算符 … 、 Array.prototype.slice()、 Array.prototype.concat() 等，例如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">    name: &#x27;Yvette&#x27;,</span><br><span class="line">    age: 18,</span><br><span class="line">    hobbies: [&#x27;reading&#x27;, &#x27;photography&#x27;]</span><br><span class="line">&#125;;</span><br><span class="line">let obj2 = Object.assign(&#123;&#125;, obj);</span><br><span class="line">let obj3 = &#123;...obj&#125;;</span><br><span class="line">obj.name = &#x27;Jack&#x27;;</span><br><span class="line">obj.hobbies.push(&#x27;coding&#x27;);</span><br><span class="line">console.log(obj);//&#123; name: &#x27;Jack&#x27;, age: 18,hobbies: [ &#x27;reading&#x27;, &#x27;photography&#x27;, &#x27;coding&#x27; ] &#125;</span><br><span class="line">console.log(obj2);//&#123; name: &#x27;Yvette&#x27;, age: 18,hobbies: [ &#x27;reading&#x27;, &#x27;photography&#x27;, &#x27;coding&#x27; ] &#125;</span><br><span class="line">console.log(obj3);//&#123; name: &#x27;Yvette&#x27;, age: 18,hobbies: [ &#x27;reading&#x27;, &#x27;photography&#x27;, &#x27;coding&#x27; ] &#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出浅拷贝只最第一层属性进行了拷贝，当第一层的属性值是基本数据类型时，新的对象和原对象互不影响，但是如果第一层的属性值是复杂数据类型，那么新对象和原对象的属性值其指向的是同一块内存地址。来看一下使用 forin 实现浅拷贝。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">    name: &#x27;Yvette&#x27;,</span><br><span class="line">    age: 18,</span><br><span class="line">    hobbies: [&#x27;reading&#x27;, &#x27;photography&#x27;]</span><br><span class="line">&#125;</span><br><span class="line">let newObj = &#123;&#125;;</span><br><span class="line">for (let key in obj)&#123;</span><br><span class="line">    newObj[key] = obj[key];//这一步不需要多说吧，复杂数据类型栈中存的是对应的地址，因此赋值操作，相当于两个属性值指向同一个内存空间</span><br><span class="line">&#125;</span><br><span class="line">console.log(newObj);//&#123; name: &#x27;Yvette&#x27;, age: 18, hobbies: [ &#x27;reading&#x27;, &#x27;photography&#x27; ] &#125;</span><br><span class="line">obj.age = 20;</span><br><span class="line">obj.hobbies.pop();</span><br><span class="line">console.log(newObj);//&#123; name: &#x27;Yvette&#x27;, age: 18, hobbies: [ &#x27;reading&#x27; ] &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="深拷贝实现"><a href="#深拷贝实现" class="headerlink" title="深拷贝实现"></a>深拷贝实现</h2><blockquote>
+<p>1.深拷贝最简单的实现是: JSON.parse(JSON.stringify(obj))</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">    name: &#x27;Yvette&#x27;,</span><br><span class="line">    age: 18,</span><br><span class="line">    hobbies: [&#x27;reading&#x27;, &#x27;photography&#x27;]</span><br><span class="line">&#125;;</span><br><span class="line">let newObj = JSON.parse(JSON.stringify(obj));//newObj和obj互不影响</span><br><span class="line">obj.hobbies.push(&#x27;coding&#x27;);</span><br><span class="line">console.log(newObj);//&#123; name: &#x27;Yvette&#x27;, age: 18, hobbies: [ &#x27;reading&#x27;, &#x27;photography&#x27; ] &#125;</span><br></pre></td></tr></table></figure>
+<p>JSON.parse(JSON.stringify(obj)) 是最简单的实现方式，但是有一点缺陷：</p>
+<p>1.对象的属性值是函数时，无法拷贝。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">    name: &#x27;Yvette&#x27;,</span><br><span class="line">    age: 18,</span><br><span class="line">    hobbies: [&#x27;reading&#x27;, &#x27;photography&#x27;],</span><br><span class="line">    sayHi: function () &#123;</span><br><span class="line">        console.log(sayHi);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">let newObj = JSON.parse(JSON.stringify(obj));</span><br><span class="line">console.log(newObj);//&#123; name: &#x27;Yvette&#x27;, age: 18, hobbies: [ &#x27;reading&#x27;, &#x27;photography&#x27; ] &#125;</span><br></pre></td></tr></table></figure>
+<p>2.原型链上的属性无法获取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Super() &#123;&#125;</span><br><span class="line">Super.prototype.location = &#x27;NanJing&#x27;;</span><br><span class="line">function Child(name, age, hobbies) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.age = age;</span><br><span class="line">&#125;;</span><br><span class="line">Child.prototype = new Super();</span><br><span class="line">let obj = new Child(&#x27;Yvette&#x27;, 18);</span><br><span class="line">console.log(obj.location);</span><br><span class="line">//NanJing</span><br><span class="line">let newObj = JSON.parse(JSON.stringify(obj));</span><br><span class="line">console.log(newObj);//&#123; name: &#x27;Yvette&#x27;, age: 18&#125;</span><br><span class="line">console.log(newObj.location);//undefined;原型链上的属性无法获取</span><br></pre></td></tr></table></figure>
+
+<p>3.不能正确的处理 Date 类型的数据</p>
+<p>4.不能处理 RegExp</p>
+<p>5.会忽略 symbol</p>
+<p>6.会忽略 undefined</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">    time: new Date(),</span><br><span class="line">    reg: /\d&#123;3&#125;/,</span><br><span class="line">    sym: Symbol(10),</span><br><span class="line">    name: undefined</span><br><span class="line">&#125;;</span><br><span class="line">let obj2 = JSON.parse(JSON.stringify(obj));</span><br><span class="line">console.log(obj2);//&#123; time: &#x27;2019-06-02T08:16:44.625Z&#x27;, reg: &#123;&#125; &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2.实现一个 deepClone 函数</p>
+</blockquote>
+<pre><code>1、如果是基本数据类型，直接返回
+2、如果是 RegExp 或者 Date 类型，返回对应类型
+3、如果是复杂数据类型，递归拷贝。
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function deepClone(obj) &#123;//递归拷贝</span><br><span class="line">    if (obj instanceof RegExp) returnnewRegExp(obj);</span><br><span class="line">    if (obj instanceof Date) return new Date(obj);</span><br><span class="line">    if (obj === null || typeof obj !== &#x27;object&#x27;) &#123;//如果不是复杂数据类型，直接返回</span><br><span class="line">        return obj;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 如果obj是数组，那么 obj.constructor 是 [Function: Array]</span><br><span class="line">     * 如果obj是对象，那么 obj.constructor 是 [Function: Object]</span><br><span class="line">     */</span><br><span class="line">    let t = new obj.constructor();</span><br><span class="line">    for (let key in obj) &#123;//如果 obj[key] 是复杂数据类型，递归</span><br><span class="line">        if (obj.hasOwnProperty(key))&#123;//是否是自身的属性</span><br><span class="line">            t[key] = deepClone(obj[key]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    return t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"># 前端面试题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/03/2019/%E5%85%B3%E4%BA%8E%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%EF%BC%8C%E4%BD%A0%E5%BF%85%E9%A1%BB%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84/" rel="prev" title="关于移动端适配，你必须要知道的">
+                  <i class="fa fa-chevron-left"></i> 关于移动端适配，你必须要知道的
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/06/19/2019/%E4%B8%AD%E5%9B%BD%E7%AA%97%E6%A3%82%E4%B8%8Ecss-Chinese-Window-Lattice-And-CSS/" rel="next" title="中国窗棂与css(Chinese Window Lattice And CSS)">
+                  中国窗棂与css(Chinese Window Lattice And CSS) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Charli</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

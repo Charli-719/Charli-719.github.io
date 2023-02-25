@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"charli-719.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在前端开发中，让元素居中是常常用到的。其中，居中可以分为水平和垂直居中两种。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css实现居中的常用方法">
+<meta property="og:url" content="https://charli-719.github.io/2019/08/23/2019/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Charli">
+<meta property="og:description" content="在前端开发中，让元素居中是常常用到的。其中，居中可以分为水平和垂直居中两种。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://charli-719.github.io/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/margin0auto.jpg">
+<meta property="og:image" content="https://charli-719.github.io/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/position.jpg">
+<meta property="og:image" content="https://charli-719.github.io/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/positionandtransform.jpg">
+<meta property="og:image" content="https://charli-719.github.io/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/table-cell.jpg">
+<meta property="og:image" content="https://charli-719.github.io/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/vertical-align.jpg">
+<meta property="article:published_time" content="2019-08-23T04:00:08.000Z">
+<meta property="article:modified_time" content="2022-05-24T10:36:01.272Z">
+<meta property="article:author" content="Charli">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="css">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://charli-719.github.io/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/margin0auto.jpg">
+
+
+<link rel="canonical" href="https://charli-719.github.io/2019/08/23/2019/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://charli-719.github.io/2019/08/23/2019/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/","path":"2019/08/23/2019/css实现居中的常用方法/","title":"css实现居中的常用方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>css实现居中的常用方法 | Charli</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Charli" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Charli</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">梦想的起源</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD"><span class="nav-number">1.</span> <span class="nav-text">水平居中</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81margin%EF%BC%9A0-auto"><span class="nav-number">1.1.</span> <span class="nav-text">1、margin：0 auto</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD"><span class="nav-number">2.</span> <span class="nav-text">水平垂直居中</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81position"><span class="nav-number">2.1.</span> <span class="nav-text">1、position</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81position-and-transform"><span class="nav-number">2.2.</span> <span class="nav-text">2、position and transform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81flex"><span class="nav-number">2.3.</span> <span class="nav-text">3、flex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81table-cell"><span class="nav-number">2.4.</span> <span class="nav-text">4、table-cell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81vertical-align-middle"><span class="nav-number">2.5.</span> <span class="nav-text">5、vertical-align:middle</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Charli</p>
+  <div class="site-description" itemprop="description">不积跬步，无以至千里</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://charli-719.github.io/2019/08/23/2019/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Charli">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Charli">
+      <meta itemprop="description" content="不积跬步，无以至千里">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="css实现居中的常用方法 | Charli">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          css实现居中的常用方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-23 12:00:08" itemprop="dateCreated datePublished" datetime="2019-08-23T12:00:08+08:00">2019-08-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-24 18:36:01" itemprop="dateModified" datetime="2022-05-24T18:36:01+08:00">2022-05-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在前端开发中，让元素居中是常常用到的。其中，居中可以分为水平和垂直居中两种。</p>
+<span id="more"></span>
+<h3 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h3><h4 id="1、margin：0-auto"><a href="#1、margin：0-auto" class="headerlink" title="1、margin：0 auto"></a>1、margin：0 auto</h4><p>代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.content&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: #f14b11;</span><br><span class="line">    margin: 0 auto;</span><br><span class="line">&#125;</span><br><span class="line">&lt;div class=&quot;content&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果图：<br><img src="/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/margin0auto.jpg"></p>
+<h3 id="水平垂直居中"><a href="#水平垂直居中" class="headerlink" title="水平垂直居中"></a>水平垂直居中</h3><h4 id="1、position"><a href="#1、position" class="headerlink" title="1、position"></a>1、position</h4><p>利用position实现水平垂直居中，父元素相对定位，子元素绝对定位。子元素距离左与上各-50%，margin减去自身宽度的一半。适用于具有固定宽和高的元素居中<br>代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">    background: yellow;</span><br><span class="line">    margin: auto;</span><br><span class="line">&#125;</span><br><span class="line">.son&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    background: red;</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 50%;</span><br><span class="line">    margin: -50px -50px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;son&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果图：<br><img src="/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/position.jpg"></p>
+<h4 id="2、position-and-transform"><a href="#2、position-and-transform" class="headerlink" title="2、position and transform"></a>2、position and transform</h4><p>利用position和transform使元素居中。将子元素的margin替换成transform：translate（-50%，-50%）。使用于不知道具体宽和高的元素居中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">    background: red;</span><br><span class="line">    margin: auto;</span><br><span class="line">&#125;</span><br><span class="line">.son&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    background: yellow;</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 50%;</span><br><span class="line">    /*margin: -50px -50px;*/</span><br><span class="line">    transform: translate(-50%,-50%);</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;son&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果图：<br>!]<a href="css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/positionandtransform.jpg"></a></p>
+<h4 id="3、flex"><a href="#3、flex" class="headerlink" title="3、flex"></a>3、flex</h4><p>利用弹性布局使元素居中。给父元素设置<br>display:flex;&#x2F;&#x2F;设置父元素<br>justify-content:center;&#x2F;&#x2F;水平居中<br>align-items:center;&#x2F;&#x2F;垂直居中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    position: relative;</span><br><span class="line">     width: 300px;</span><br><span class="line">     height: 300px;</span><br><span class="line">     background: red;</span><br><span class="line">     margin: auto;</span><br><span class="line">     display: flex;</span><br><span class="line">     align-items: center;</span><br><span class="line">     justify-content: center;</span><br><span class="line"> &#125;</span><br><span class="line"> .son&#123;</span><br><span class="line">     width: 100px;</span><br><span class="line">     height: 100px;</span><br><span class="line">     background: yellow;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> &lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">     &lt;div class=&quot;son&quot;&gt;&lt;/div&gt;</span><br><span class="line"> &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果图：<br><img src="/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/positionandtransform.jpg"></p>
+<h4 id="4、table-cell"><a href="#4、table-cell" class="headerlink" title="4、table-cell"></a>4、table-cell</h4><p>组合使用display:table-cell和vertical-align、text-align，使父元素内的所有行内元素水平垂直居中。适用于不知道元素具体宽和高是。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    position: relative;</span><br><span class="line">     width: 300px;</span><br><span class="line">     height: 300px;</span><br><span class="line">     background: red;</span><br><span class="line">     margin: auto;</span><br><span class="line">     display: table-cell;</span><br><span class="line">     vertical-align: middle;</span><br><span class="line">     text-align: center;</span><br><span class="line">     border:1px solid #666;</span><br><span class="line"> &#125;</span><br><span class="line"> .son&#123;</span><br><span class="line">     color: yellow;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> &lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">     &lt;div class=&quot;son&quot;&gt;我爱你中国&lt;/div&gt;</span><br><span class="line"> &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果图：<br><img src="/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/table-cell.jpg"><br>table-cell的应用还有很多，具体的参考<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2010/10/%E6%88%91%E6%89%80%E7%9F%A5%E9%81%93%E7%9A%84%E5%87%A0%E7%A7%8Ddisplaytable-cell%E7%9A%84%E5%BA%94%E7%94%A8/">张鑫旭老师的《display:table-cell的应用》</a>。</p>
+<h4 id="5、vertical-align-middle"><a href="#5、vertical-align-middle" class="headerlink" title="5、vertical-align:middle"></a>5、vertical-align:middle</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    position: fixed;</span><br><span class="line">    top: 0;</span><br><span class="line">    right: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    left: 0;</span><br><span class="line">    background-color: rgba(0,0,0,.5);</span><br><span class="line">    text-align: center;</span><br><span class="line">    font-size: 0;</span><br><span class="line">    white-space: nowrap;</span><br><span class="line">    overflow: auto;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">&#125;</span><br><span class="line">.parent:after&#123;</span><br><span class="line">    content: &#x27;&#x27;;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    height: 100%;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">&#125;</span><br><span class="line">.son&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: red;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">    text-align: left;</span><br><span class="line">    font-size: 14px;</span><br><span class="line">    white-space: normal;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;son&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果图：<br><img src="/css%E5%AE%9E%E7%8E%B0%E5%B1%85%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/vertical-align.jpg"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/css/" rel="tag"># css</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/08/2019/css%E9%80%89%E6%8B%A9%E5%99%A8%E4%B8%AD-first-child%E4%B8%8E-first-of-type%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="prev" title="css选择器中:first-child与:first-of-type的区别">
+                  <i class="fa fa-chevron-left"></i> css选择器中:first-child与:first-of-type的区别
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/08/29/2019/CSS%E6%94%B9%E5%8F%98%E5%9B%BE%E7%89%87%E9%A2%9C%E8%89%B2%E7%9A%84filter-%E6%BB%A4%E9%95%9C-%E5%B1%9E%E6%80%A7/" rel="next" title="CSS改变图片颜色的filter(滤镜)属性">
+                  CSS改变图片颜色的filter(滤镜)属性 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Charli</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
